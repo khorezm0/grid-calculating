@@ -10,10 +10,12 @@ namespace GridCommon
     /// <summary>
     /// Класс раздающий задания
     /// </summary>
-    public class JobsFactory
+    public static class JobsFactory
     {
         static SquareMatrix jobs;
         static int currI;
+
+        public static bool HasJob { get; private set; }
 
         public static void SetJobsRaw(SquareMatrix jobs)
         {
@@ -21,8 +23,10 @@ namespace GridCommon
             {
                 throw new ArgumentNullException();
             }
-            currI = 0;
+
+            JobsFactory.currI = 0;
             JobsFactory.jobs = jobs;
+            JobsFactory.HasJob = true;
         }
 
         public static Job GetJob()
@@ -34,6 +38,8 @@ namespace GridCommon
                     MatricesToSum = new Bounds[]
                     { new Bounds(0, 0, jobs.Size - 1, jobs.Size -1) } };
                 currI++;
+                HasJob = false;
+
                 return j;
             }
 

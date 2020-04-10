@@ -24,6 +24,7 @@ namespace GridCommon
 
         public void SetResult(JobResult result)
         {
+            JobsComparer.AddJobResult(result);
             Console.WriteLine($"Клиент посчитал: {result.Result.Values.FirstOrDefault()}");
         }
     }
