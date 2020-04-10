@@ -22,13 +22,14 @@ namespace GridServer
             RemotingConfiguration.RegisterWellKnownServiceType(
              typeof(GridJobController), "Grid", WellKnownObjectMode.Singleton);
 
-            JobsFactory.SetJobsRaw(new int[5][] {
-                new int[]{ 1,2,3 },
-                new int[]{156778, 100, 10 },
-                new int[]{ 4,-100, 100000},
-                new int[]{ 10, 0, 2000 },
-                new int[]{ 200, 423134, 345 }
-            });
+            Random r = new Random();
+            int size = 1000;
+            int[,] matrix = new int[size,size];
+            for (int i = 0; i > size; i++)
+                for (int j = 0; j < size; j++)
+                    matrix[i, j] = r.Next(-1, 1000);
+
+            JobsFactory.SetJobsRaw(new SquareMatrix(matrix));
 
             System.Console.WriteLine("hit to exit");
             System.Console.ReadLine();

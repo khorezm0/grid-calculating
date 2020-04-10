@@ -41,11 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bounds.cs" />
     <Compile Include="GridJobController.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="JobExecutor.cs" />
     <Compile Include="JobResult.cs" />
     <Compile Include="JobsFactory.cs" />
+    <Compile Include="SquareMatrix.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

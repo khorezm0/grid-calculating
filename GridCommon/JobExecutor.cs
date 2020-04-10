@@ -15,13 +15,15 @@ namespace GridCommon
         /// <returns></returns>
         public JobResult Execute(Job job)
         {
-            int res = 1;
-            foreach(var n in job.N)
+            Dictionary<Bounds, int> dic = new Dictionary<Bounds, int>();
+            foreach(var b in job.MatricesToSum)
             {
-                res *= n;
+                var sum = job.Matrix.Sum();
+                dic.Add(b, sum);
+                Console.WriteLine("Sum: "+sum);
             }
             return new JobResult() { 
-                Result = res
+                Result = dic
             };
         }
     }

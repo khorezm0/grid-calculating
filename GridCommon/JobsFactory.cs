@@ -12,10 +12,10 @@ namespace GridCommon
     /// </summary>
     public class JobsFactory
     {
-        static int[][] jobs;
+        static SquareMatrix jobs;
         static int currI;
 
-        public static void SetJobsRaw(int[][] jobs)
+        public static void SetJobsRaw(SquareMatrix jobs)
         {
             if(jobs == null)
             {
@@ -27,9 +27,12 @@ namespace GridCommon
 
         public static Job GetJob()
         {
-            if(currI < jobs.Length)
+            if(currI < 1)
             {
-                var j = new Job() { N = jobs[currI] };
+                var j = new Job() { 
+                    Matrix = jobs, 
+                    MatricesToSum = new Bounds[]
+                    { new Bounds(0, 0, jobs.Size - 1, jobs.Size -1) } };
                 currI++;
                 return j;
             }

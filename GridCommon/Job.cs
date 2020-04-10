@@ -12,7 +12,8 @@ namespace GridCommon
     /// </summary>
     public class Job
     {
-        public int[] N { get; set; }
+        public SquareMatrix Matrix { get; set; }
+        public Bounds[] MatricesToSum { get; set; }
     }
 
 }

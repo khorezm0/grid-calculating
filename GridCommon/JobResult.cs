@@ -12,7 +12,7 @@ namespace GridCommon
     /// </summary>
     public class JobResult
     {
-        public int Result { get; set; }
+        public Dictionary<Bounds, int> Result { get; set; }
     }
 
 }

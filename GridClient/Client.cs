@@ -29,9 +29,9 @@ namespace GridClient
             {
                 var job = controller.GetJob();
                 if (job == null) break;
+
                 Console.WriteLine($"Берем работу: " + i);
-                System.Threading.Thread.Sleep(500);
-                controller.SetResult(job, exe.Execute(job));
+                controller.SetResult(exe.Execute(job));
             }
 
             Console.WriteLine("END");

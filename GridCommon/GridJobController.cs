@@ -11,8 +11,6 @@ namespace GridCommon
     public class GridJobController : MarshalByRefObject
     {
 
-        static System.Random Random = new Random();
-
         /// <summary>
         /// Полчуить задание об умножении двух чисел
         /// </summary>
@@ -20,14 +18,13 @@ namespace GridCommon
         public Job GetJob()
         {
             var j = JobsFactory.GetJob();
-            if (j != null)
-                Console.WriteLine($"Клиенту дана работа! "+String.Join(", 0", j.N));
+            if (j != null) Console.WriteLine("Клиент взял работу: "+j.Matrix.Size);
             return j;
         }
 
-        public void SetResult(Job job, JobResult result)
+        public void SetResult(JobResult result)
         {
-            Console.WriteLine($"Клиент посчитал: {result.Result}");
+            Console.WriteLine($"Клиент посчитал: {result.Result.Values.FirstOrDefault()}");
         }
     }
 }
