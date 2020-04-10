@@ -19,23 +19,34 @@ namespace GridClient
             GridJobController controller = (GridJobController)Activator.GetObject(typeof(GridJobController), "tcp://localhost:3000/Grid");
             if (controller == null)
             {
-                Console.WriteLine("could not locate server"); 
+                Console.WriteLine("could not locate server");
                 return;
             }
 
-
-            JobExecutor exe = new JobExecutor();
-            for (int i = 0; i < 100; i++)
+            bool q = false;
+            while (!q)
             {
-                var job = controller.GetJob();
-                if (job == null) break;
+                JobExecutor exe = new JobExecutor();
+                for (int i = 0; i < 100; i++)
+                {
+                    var job = controller.GetJob();
+                    if (job == null) break;
 
-                Console.WriteLine($"Берем работу: " + i);
-                controller.SetResult(exe.Execute(job));
+                    Console.WriteLine($"Берем работу: " + i);
+                    var start = DateTime.Now;
+                    var res = exe.Execute(job);
+                    var end = DateTime.Now;
+
+                    Console.WriteLine((end - start).TotalMilliseconds + " ms.");
+
+                    controller.SetResult(res);
+                }
+
+                Console.WriteLine("END(q to exit)");
+                var k = Console.ReadKey();
+                if (k.Key == ConsoleKey.Q) break;
             }
 
-            Console.WriteLine("END");
-            Console.ReadKey();
         }
     }
 }

@@ -22,14 +22,36 @@ namespace GridServer
             RemotingConfiguration.RegisterWellKnownServiceType(
              typeof(GridJobController), "Grid", WellKnownObjectMode.Singleton);
 
-            Random r = new Random();
-            int size = 1000;
-            int[,] matrix = new int[size,size];
-            for (int i = 0; i > size; i++)
-                for (int j = 0; j < size; j++)
-                    matrix[i, j] = r.Next(-1, 1000);
+            Console.Write("Введите размер матрицы: ");
 
-            JobsFactory.SetJobsRaw(new SquareMatrix(matrix));
+            bool q = false;
+            while (!q)
+            {
+                var text = Console.ReadLine();
+                long size = 0;
+                if (text == "q") 
+                {
+                    q = true;
+                }
+                else if(long.TryParse(text,out size))
+                {
+                    Random r = new Random();
+                    int[][] matrix = new int[size][];
+                    for (int i = 0; i < size; i++)
+                    {
+                        matrix[i] = new int[size];
+                        for (int j = 0; j < size; j++)
+                            matrix[i][j] = r.Next(-1000, 1000);
+                    }
+
+                    JobsFactory.SetJobsRaw(new SquareMatrix(matrix));
+                    Console.WriteLine("Для новой работы введите новый размер матрицы(или q для выхода): ");
+                }
+                else 
+                {
+                    Console.WriteLine("Введите нормальные данные!");
+                }
+            }
 
             System.Console.WriteLine("hit to exit");
             System.Console.ReadLine();

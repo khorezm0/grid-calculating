@@ -9,19 +9,20 @@ namespace GridCommon
     [System.Serializable]
     public class SquareMatrix
     {
-        readonly int[,] matrix;
+        readonly int[][] matrix;
         readonly long size;
         public long Size => size;
 
         public SquareMatrix(long n)
         {
-            matrix = new int[n,n];
+            matrix = new int[n][];
+            for (int i = 0; i < n; i++) matrix[i] = new int[n];
             size = n;
         }
 
-        public SquareMatrix(int[,] data)
+        public SquareMatrix(int[][] data)
         {
-            if (data.GetLongLength(0) != data.GetLongLength(1)) 
+            if (data.Length > 0 && data.GetLongLength(0) != data[0].GetLongLength(0)) 
                 throw new ArgumentException();
 
             matrix = data;
@@ -30,8 +31,8 @@ namespace GridCommon
 
         public int this[int i, int j]
         {
-            get { return matrix[i,j]; }
-            set { matrix[i,j] = value; }
+            get { return matrix[i][j]; }
+            set { matrix[i][j] = value; }
         }
 
         public int Sum(Bounds b)
@@ -51,7 +52,9 @@ namespace GridCommon
             int a = 0;
             for (long i = b.StartLeft; i < b.EndLeft; i++)
                 for (long j = b.StartTop; j < b.EndTop; j++)
-                    a += matrix[i, j];
+                {
+                    a += matrix[i][j];
+                }
 
             return a;
         }
@@ -61,7 +64,9 @@ namespace GridCommon
             int a = 0;
             for (long i = 0; i < size; i++)
                 for (long j = 0; j < size; j++)
-                    a += matrix[i, j];
+                {
+                    a += matrix[i][j];
+                }
 
             return a;
         }
