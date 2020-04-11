@@ -123,8 +123,10 @@ namespace GridServer
                 var parser = new SquareMatrixParser();
                 var matrix = parser.ParseStream(System.IO.File.OpenRead(selctedFilePath));
 
-                var server = new Server();
-                server.Start(matrix, OnResult);
+                System.Threading.ThreadPool.QueueUserWorkItem((o)=> {
+                    var server = new Server();
+                    server.Start(matrix, OnResult);
+                });
             }
             catch (Exception e)
             {

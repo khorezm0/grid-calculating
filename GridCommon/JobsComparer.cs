@@ -23,7 +23,7 @@ namespace GridCommon
                 var j = MaxResult.Index % JobsFactory.CurrentMatrix.Size;
                 var i = (MaxResult.Index - j) / JobsFactory.CurrentMatrix.Size;
 
-                var str = $"Макс Сумма: {MaxResult.Sum} Строка: {i+1}, Столбец: {j+1}, Размер: {MaxResult.Size}";
+                var str = $"Макс Сумма: {MaxResult.Sum} \nСтрока: {i+1} \nСтолбец: {j+1} \nРазмер: {MaxResult.Size}";
                 callback?.Invoke(str);
             }
         }

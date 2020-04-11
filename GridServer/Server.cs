@@ -19,8 +19,6 @@ namespace GridServer
             JobsComparer.SetJobDoneCallback(resultCallback);
             JobsFactory.SetJobsRaw(matrix);
 
-
-
             TcpServerChannel channel = new TcpServerChannel(3000);
             ChannelServices.RegisterChannel(channel, false);
 
