@@ -66,6 +66,9 @@ namespace GridCommon
                         HasJob = false;
                     }
                 }
+
+
+
                 return j;
             }
 
