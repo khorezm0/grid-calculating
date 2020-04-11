@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>GridServer.Server</StartupObject>
+    <StartupObject>GridServerConsole.Server</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

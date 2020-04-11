@@ -26,25 +26,35 @@ namespace GridClient
             bool q = false;
             while (!q)
             {
-                JobExecutor exe = new JobExecutor();
-                for (int i = 0; i < 100; i++)
+                try
                 {
-                    var job = controller.GetJob();
-                    if (job == null) break;
 
-                    Console.WriteLine($"Берем работу: " + i);
+                    JobExecutor exe = new JobExecutor();
                     var start = DateTime.Now;
-                    var res = exe.Execute(job);
+                    var hasJobs = false;
+
+                    for (int i = 0; i < 100; i++)
+                    {
+                        var job = controller.GetJob();
+                        if (job == null) break;
+
+                        hasJobs = true;
+                        //Console.WriteLine($"Берем работу: " + i);
+                        var res = exe.Execute(job);
+
+
+                        controller.SetResult(res);
+                    }
                     var end = DateTime.Now;
-
-                    Console.WriteLine((end - start).TotalMilliseconds + " ms.");
-
-                    controller.SetResult(res);
+                    if(hasJobs) Console.WriteLine((end - start).TotalMilliseconds + " ms.");
+                    System.Threading.Thread.Sleep(500);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex);
                 }
 
-                Console.WriteLine("END(q to exit)");
-                var k = Console.ReadKey();
-                if (k.Key == ConsoleKey.Q) break;
+                if (Console.KeyAvailable && Console.ReadKey().Key == ConsoleKey.Q) break;
             }
 
         }

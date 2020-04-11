@@ -18,14 +18,14 @@ namespace GridCommon
         public Job GetJob()
         {
             var j = JobsFactory.GetJob();
-            if (j != null) Console.WriteLine("Клиент взял работу: "+j.Matrix.Size);
+            if (j != null) Console.WriteLine("Клиент взял работу: "+j.CalcSizes);
             return j;
         }
 
         public void SetResult(JobResult result)
         {
             JobsComparer.AddJobResult(result);
-            Console.WriteLine($"Клиент посчитал: {result.Result.Values.FirstOrDefault()}");
+            Console.WriteLine($"Клиент посчитал: {result.Sum}");
         }
     }
 }

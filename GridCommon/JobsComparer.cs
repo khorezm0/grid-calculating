@@ -9,13 +9,22 @@ namespace GridCommon
     public class JobsComparer
     {
         static Action<string> callback;
+        static JobResult MaxResult;
 
         public static void AddJobResult(JobResult result)
         {
+            if (MaxResult == null 
+                || result.Sum > MaxResult.Sum)
+                MaxResult = result;
+
             //сравниваем и мб созраняем рузельтат
-            if (!JobsFactory.HasJob)
+            if (!JobsFactory.HasJob && result.JobStartIndex == JobsFactory.LastValidId)
             {
-                callback?.Invoke("Норм");
+                var j = MaxResult.Index % JobsFactory.CurrentMatrix.Size;
+                var i = (MaxResult.Index - j) / JobsFactory.CurrentMatrix.Size;
+
+                var str = $"Макс Сумма: {MaxResult.Sum} Строка: {i+1}, Столбец: {j+1}, Размер: {MaxResult.Size}";
+                callback?.Invoke(str);
             }
         }
 

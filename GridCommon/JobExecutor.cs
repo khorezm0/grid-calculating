@@ -15,15 +15,45 @@ namespace GridCommon
         /// <returns></returns>
         public JobResult Execute(Job job)
         {
-            Dictionary<Bounds, int> dic = new Dictionary<Bounds, int>();
-            foreach(var b in job.MatricesToSum)
+            long maxSum = 0;
+            long maxI = 0;
+            bool isHasMax = false;
+
+            for (long I = job.StartIndex; I < job.EndIndex; I++)
             {
-                var sum = job.Matrix.Sum();
-                dic.Add(b, sum);
-                Console.WriteLine("Sum: "+sum);
+                var j = I % job.Matrix.Size;
+                var i = (I - j) / job.Matrix.Size;
+
+                var endI = i + job.CalcSizes - 1;
+                var endJ = j + job.CalcSizes - 1;
+
+
+                //Console.WriteLine($"Calc: {job.CalcSizes} ({j};{i} - {endJ};{endI}) ");
+
+                if (endI >= job.Matrix.Size || endJ >= job.Matrix.Size ||
+                    i >= job.Matrix.Size || j >= job.Matrix.Size
+                    )
+                {
+                    //Console.WriteLine($"Cancel!");
+                    continue;
+                }
+
+                var sum = job.Matrix.Sum(new Bounds(j, i, endJ, endI));
+
+                //Console.WriteLine($"Sum: {sum}");
+                if (maxSum < sum || !isHasMax)
+                {
+                    isHasMax = true;
+                    maxSum = sum;
+                    maxI = I;
+                }
             }
-            return new JobResult() { 
-                Result = dic
+
+            return new JobResult() {
+                JobStartIndex = job.StartIndex,
+                Index = maxI,
+                Size = job.CalcSizes,
+                Sum = maxSum
             };
         }
     }

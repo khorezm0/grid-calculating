@@ -13,7 +13,9 @@ namespace GridCommon
     public class Job
     {
         public SquareMatrix Matrix { get; set; }
-        public Bounds[] MatricesToSum { get; set; }
+        public long CalcSizes { get; set; }
+        public long StartIndex { get; set; }
+        public long EndIndex { get; set; }
     }
 
 }

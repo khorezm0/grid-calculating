@@ -50,8 +50,8 @@ namespace GridCommon
                 throw new ArgumentOutOfRangeException();
 
             int a = 0;
-            for (long i = b.StartLeft; i < b.EndLeft; i++)
-                for (long j = b.StartTop; j < b.EndTop; j++)
+            for (long i = b.StartTop; i <= b.EndTop; i++)
+                for (long j = b.StartLeft; j <= b.EndLeft; j++)
                 {
                     a += matrix[i][j];
                 }
